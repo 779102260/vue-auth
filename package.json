@@ -1,0 +1,44 @@
+{
+  "name": "vue-auth",
+  "version": "1.0.0",
+  "description": "vue 权限控制插件",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "jest",
+    "build": "npm run build1 & npm run build2",
+    "build1": "webpack --config webpack.config.js",
+    "build2": "webpack --config webpack.es.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/779102260/vue-auth.git"
+  },
+  "keywords": [
+    "util",
+    "kso"
+  ],
+  "author": "yangsansuan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/779102260/vue-auth/issues"
+  },
+  "homepage": "https://github.com/779102260/vue-auth#readme",
+  "devDependencies": {
+    "@babel/core": "^7.6.4",
+    "@babel/plugin-transform-runtime": "^7.6.2",
+    "@babel/preset-env": "^7.6.3",
+    "babel-jest": "^24.9.0",
+    "babel-loader": "^8.0.6",
+    "eslint": "^6.5.1",
+    "eslint-config-google": "^0.14.0",
+    "eslint-config-prettier": "^6.4.0",
+    "eslint-plugin-prettier": "^3.1.1",
+    "jest": "^24.9.0",
+    "prettier": "^1.18.2",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.9"
+  },
+  "dependencies": {
+    "@babel/runtime-corejs2": "^7.6.3"
+  }
+}
