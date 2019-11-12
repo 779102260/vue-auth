@@ -71,7 +71,7 @@ const wrapComponent = function(conf) {
 	const regToGlobal = conf.regToGlobal || false
 	const rComponent = {
 		functional: true,
-		isAuthWrap: true,
+		vueAuth: true,
 		props: {
 			auth: {
 				default() {
@@ -94,12 +94,12 @@ const defaultCheckAuthFn = function(...argus) {
 const regDirective = function(Vue, checkAtuhFn) {
 	Vue.directive('auth', function(el, binding, vnode) {
 		if (!checkAtuhFn(binding.value)) {
-			el.className += el.className.indexOf('i_dont_have_auth') === -1 ? ' i_dont_have_auth' : ''
+			el.className += el.className.indexOf('vue-auth') === -1 ? ' vue-auth' : ''
 			el.dataset.auth = binding.value
 			el.parentNode && el.parentNode.removeChild(el)
 		}
 		// else {
-		//   el.className = el.className.replace(' i_dont_have_auth', '')
+		//   el.className = el.className.replace(' vue-auth', '')
 		// }
 	})
 }
@@ -110,7 +110,7 @@ const regMinix = function(Vue) {
 			const components = this.$options.components
 			for (const name in components) {
 				const component = components[name]
-				if (!Object.prototype.hasOwnProperty.call(components, name) || component.isAuthWrap) {
+				if (!Object.prototype.hasOwnProperty.call(components, name) || component.vueAuth) {
 					continue
 				}
 				this.$options.components[name] = wrapComponent({ name, confing: component })
@@ -124,7 +124,7 @@ const insertStyleSheet = function() {
 	const style = document.createElement('style')
 	// 插入样式
 	document.getElementsByTagName('head')[0].appendChild(style)
-	style.sheet.insertRule('.i_dont_have_auth { display: none}', 0)
+	style.sheet.insertRule('.vue-auth { display: none}', 0)
 }
 
 insertStyleSheet()

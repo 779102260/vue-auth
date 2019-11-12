@@ -18,7 +18,7 @@ Vue.use(auth, options)
 
 ```js
 {
-  globalComponets: true, // 默认开启，给全局组件增加权限控制
+  globalComponets: true, // 默认开启，给全局组件增加权限控制（包括第三方库，比如element，必须先引入库）
   directive: true, // 默认开启，给vue增加`v-auth`指令
   checker: fn // 权限的校验函数，fn必须返回一个Boolean值，false表示隐藏，fn接受一个参数（参见api）
 }
