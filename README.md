@@ -2,7 +2,7 @@
 ## 安装
 
 ```js
-npm install vue-auth -S
+npm install @yangsansuan/vue-auth -S
 ```
 
 ## 使用
@@ -10,7 +10,7 @@ npm install vue-auth -S
 1. 引入 & 配置
 
 ```js
-import {auth} from 'vue-auth'
+import {auth} from '@yangsansuan/vue-auth'
 Vue.use(auth, options)
 ```
 

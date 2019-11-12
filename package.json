@@ -1,5 +1,5 @@
 {
-  "name": "vue-auth",
+  "name": "@yangsansuan/vue-auth",
   "version": "1.0.0",
   "description": "vue 权限控制插件",
   "main": "src/index.js",
