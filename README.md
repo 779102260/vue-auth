@@ -10,8 +10,8 @@ npm install @yangsansuan/vue-auth -S
 1. 引入 & 配置
 
 ```js
-import {auth} from '@yangsansuan/vue-auth'
-Vue.use(auth, options)
+import Auth from '@yangsansuan/vue-auth'
+Vue.use(Auth, options)
 ```
 
 `options`为插件的配置项：
