@@ -80,7 +80,9 @@ const wrapComponent = function(conf) {
 			}
 		},
 		render(h, context) {
-			return checkAtuhFn(context.props.auth) ? h(component, context.data, context.children) : null
+			return checkAtuhFn(context.props.auth)
+				? context.parent.$createElement(component, context.data, context.children)
+				: null
 		}
 	}
 	regToGlobal && Vue.component(name, rComponent)
