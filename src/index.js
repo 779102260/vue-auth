@@ -13,10 +13,12 @@
  * }
  */
 let optionsRecord
+
 const install = function(Vue, options) {
 	if (!options) {
 		return
 	}
+	Vue = Vue
 	if (typeof options === 'function') {
 		options = { checker: options }
 	}
@@ -45,7 +47,7 @@ const wrapRegedComponents = function(Vue, checkAtuhFn) {
 	for (const name in regedComponents) {
 		const component = regedComponents[name]
 		// 重新注册组件
-		wrapComponent({
+		wrapComponent(Vue, {
 			name: name,
 			confing: component,
 			checker: checkAtuhFn,
@@ -55,7 +57,7 @@ const wrapRegedComponents = function(Vue, checkAtuhFn) {
 }
 
 // eslint-disable-next-line prettier/prettier
-const wrapComponent = function(conf) {
+const wrapComponent = function(Vue, conf) {
 	if (!conf.confing) {
 		conf = {
 			confing: conf
@@ -115,7 +117,7 @@ const regMinix = function(Vue) {
 				if (!Object.prototype.hasOwnProperty.call(components, name) || component.vueAuth) {
 					continue
 				}
-				this.$options.components[name] = wrapComponent({ name, confing: component })
+				this.$options.components[name] = wrapComponent(Vue, { name, confing: component })
 			}
 		}
 	})
