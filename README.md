@@ -14,6 +14,8 @@ import Auth from '@yangsansuan/vue-auth'
 Vue.use(Auth, options)
 ```
 
+注：在其他组件库和包装组件库引入后再注册本插件
+
 `options`为插件的配置项：
 
 ```js
