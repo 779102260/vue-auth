@@ -1,6 +1,6 @@
 {
   "name": "@yangsansuan/vue-auth",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "vue 权限控制插件",
   "main": "src/index.js",
   "scripts": {
@@ -14,8 +14,7 @@
     "url": "git+https://github.com/779102260/vue-auth.git"
   },
   "keywords": [
-    "util",
-    "kso"
+    "util"
   ],
   "author": "yangsansuan",
   "license": "ISC",
