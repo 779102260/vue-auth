@@ -16,6 +16,7 @@ const install = function(Vue, options) {
 	if (!options) {
 		return
 	}
+	insertStyleSheet()
 	if (typeof options === 'function') {
 		options = { checker: options }
 	}
@@ -25,7 +26,7 @@ const install = function(Vue, options) {
 		wrapGlobalComponents(Vue, checker)
 	}
 	// 局部组件
-	regMinix(Vue)
+	regMinix(Vue, checker)
 	// 增加v-auth指令（用于非组件）
 	if (directive) {
 		regDirective(Vue, checker)
@@ -48,8 +49,6 @@ const wrapGlobalComponents = function(Vue, checker) {
 		})
 	}
 }
-
-insertStyleSheet()
 
 export { wrapComponent as wrap, regDirective }
 export default install

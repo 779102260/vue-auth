@@ -1,6 +1,6 @@
 import wrapComponent from './wrapComponent'
 
-const regMinix = function(Vue) {
+const regMinix = function(Vue, checker) {
 	Vue.mixin({
 		beforeCreate() {
 			const components = this.$options.components
@@ -10,7 +10,7 @@ const regMinix = function(Vue) {
 				if (!Object.prototype.hasOwnProperty.call(components, name) || component.vueAuth) {
 					continue
 				}
-				this.$options.components[name] = wrapComponent(Vue, { name, confing: component })
+				this.$options.components[name] = wrapComponent(Vue, { name, config: component, checker })
 			}
 		}
 	})
