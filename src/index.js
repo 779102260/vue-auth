@@ -1,7 +1,7 @@
-/* eslint-disable guard-for-in */
-/* eslint-disable require-jsdoc */
-/* eslint-disable no-undef */
-
+import insertStyleSheet from './styleSheet.js'
+import regDirective from './directive.js'
+import wrapComponent from './wrapComponent.js'
+import regMinix from './mixin.js'
 /**
  * descript
  * @param {Function} Vue
@@ -12,25 +12,17 @@
  *  [checker]: Function
  * }
  */
-let optionsRecord
-
 const install = function(Vue, options) {
 	if (!options) {
 		return
 	}
-	Vue = Vue
 	if (typeof options === 'function') {
 		options = { checker: options }
 	}
-	if (!options.checker) {
-		options.checker = defaultCheckAuthFn
-	}
 	const { globalComponets = true, directive = true, checker } = options
-	// 备份
-	optionsRecord = options
 	// 所有全局组件增加权限控制
 	if (globalComponets) {
-		wrapRegedComponents(Vue, checker)
+		wrapGlobalComponents(Vue, checker)
 	}
 	// 局部组件
 	regMinix(Vue)
@@ -42,93 +34,19 @@ const install = function(Vue, options) {
 	Vue.prototype.wrap = wrapComponent
 }
 
-const wrapRegedComponents = function(Vue, checkAtuhFn) {
+const wrapGlobalComponents = function(Vue, checker) {
 	const regedComponents = Vue.options.components
+	// eslint-disable-next-line guard-for-in
 	for (const name in regedComponents) {
-		const component = regedComponents[name]
+		const config = regedComponents[name]
 		// 重新注册组件
 		wrapComponent(Vue, {
-			name: name,
-			confing: component,
-			checker: checkAtuhFn,
+			name,
+			config,
+			checker,
 			regToGlobal: true
 		})
 	}
-}
-
-// eslint-disable-next-line prettier/prettier
-const wrapComponent = function(Vue, conf) {
-	if (!conf.confing) {
-		conf = {
-			confing: conf
-		}
-	}
-	const name = conf.name || conf.confing.name
-	if (!name) {
-		console.error('vue auth plugin error: wrap函数在包裹你的组件时需要提供组件名')
-		return
-	}
-	const component = conf.confing
-	const checkAtuhFn = conf.checker || defaultCheckAuthFn
-	const regToGlobal = conf.regToGlobal || false
-	const rComponent = {
-		functional: true,
-		vueAuth: true,
-		props: {
-			auth: {
-				default() {
-					return true
-				}
-			}
-		},
-		render(h, context) {
-			return checkAtuhFn(context.props.auth)
-				? context.parent.$createElement(component, context.data, context.children)
-				: null
-		}
-	}
-	regToGlobal && Vue.component(name, rComponent)
-	return rComponent
-}
-
-const defaultCheckAuthFn = function(...argus) {
-	return optionsRecord.checker ? optionsRecord.checker(...argus) : true
-}
-
-const regDirective = function(Vue, checkAtuhFn) {
-	Vue.directive('auth', function(el, binding, vnode) {
-		if (!checkAtuhFn(binding.value)) {
-			el.className += el.className.indexOf('vue-auth') === -1 ? ' vue-auth' : ''
-			el.dataset.auth = binding.value
-			el.parentNode && el.parentNode.removeChild(el)
-		}
-		// else {
-		//   el.className = el.className.replace(' vue-auth', '')
-		// }
-	})
-}
-
-const regMinix = function(Vue) {
-	Vue.mixin({
-		beforeCreate() {
-			const components = this.$options.components
-			for (const name in components) {
-				const component = components[name]
-				if (!Object.prototype.hasOwnProperty.call(components, name) || component.vueAuth) {
-					continue
-				}
-				this.$options.components[name] = wrapComponent(Vue, { name, confing: component })
-			}
-		}
-	})
-}
-
-const insertStyleSheet = function() {
-	// 创建样式表
-	const style = document.createElement('style')
-	// 插入样式
-	document.getElementsByTagName('head')[0].appendChild(style)
-	style.sheet.insertRule('.vue-auth { display: none}', 0)
 }
 
 insertStyleSheet()
