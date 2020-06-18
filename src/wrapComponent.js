@@ -15,7 +15,6 @@ const defaultChecker = function() {
  * @return {Object} functional component
  */
 const wrapComponent = function(Vue, conf) {
-	console.log(conf)
 	if (!conf.config) {
 		conf = {
 			config: conf
@@ -23,12 +22,12 @@ const wrapComponent = function(Vue, conf) {
 	}
 	const { name = conf.config.name, config, checker = defaultChecker, regToGlobal = false } = conf
 	if (!name) {
-		console.error('vue auth plugin error: wrap函数在包裹你的组件时需要提供组件名')
+		console.error('[vue auth] wrap函数在包裹组件时需要你提供组件名')
 		return
 	}
 	const wrapComponent = {
 		functional: true,
-		vueAuth: true, // 标记
+		vueAuth: true, // 标记，防止重复注册
 		props: {
 			// 权限字段
 			auth: {

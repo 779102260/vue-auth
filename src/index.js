@@ -14,6 +14,7 @@ import regMinix from './mixin.js'
  */
 const install = function(Vue, options) {
 	if (!options) {
+		console.error('[vue-auth] Vue.use安装插件时，缺少参数 https://github.com/779102260/vue-auth')
 		return
 	}
 	insertStyleSheet()
